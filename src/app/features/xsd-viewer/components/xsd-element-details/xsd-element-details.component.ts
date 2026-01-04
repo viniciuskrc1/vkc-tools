@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { XsdElement } from '../../features/xsd-viewer/models';
+import { XsdElement } from '../../models';
 
 @Component({
   selector: 'app-xsd-element-details',

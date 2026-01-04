@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "johnpapa.angular-essentials",
+    "angular.ng-template",
+    "johnpapa.angular2",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "ms-vsliveshare.vsliveshare",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint"
+  ]
+}

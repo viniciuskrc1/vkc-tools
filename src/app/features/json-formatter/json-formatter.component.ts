@@ -1,17 +1,25 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TextareaComponent, SelectComponent, SelectOption, InputComponent } from '../../shared/forms';
+import { InputComponent, SelectComponent, SelectOption, TextareaComponent } from '../../shared/forms';
 import { HelpModalComponent, IHelpItem } from '../../shared/ui/help-modal';
-import { JsonPathParser } from './components/json-tree-view/json-path-parser';
 import { JsonTreeViewComponent } from './components/json-tree-view';
+import { JsonPathParser } from './components/json-tree-view/json-path-parser';
 
 @Component({
   selector: 'app-json-formatter',
   standalone: true,
-  imports: [CommonModule, FormsModule, TextareaComponent, SelectComponent, InputComponent, JsonTreeViewComponent, HelpModalComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TextareaComponent,
+    SelectComponent,
+    InputComponent,
+    JsonTreeViewComponent,
+    HelpModalComponent,
+  ],
   templateUrl: './json-formatter.component.html',
-  styleUrls: ['./json-formatter.component.scss']
+  styleUrls: ['./json-formatter.component.scss'],
 })
 export class JsonFormatterComponent {
   public jsonInput: string = '';
@@ -24,7 +32,7 @@ export class JsonFormatterComponent {
   public viewMode: 'text' | 'tree' = 'text'; // Modo de visualização: texto ou árvore
   public formatOptions: SelectOption[] = [
     { value: 'format', label: 'Formatar (Beauty Format)' },
-    { value: 'minify', label: 'Compactar (Minify)' }
+    { value: 'minify', label: 'Compactar (Minify)' },
   ];
   public showHelpModal: boolean = false;
   public helpItems: IHelpItem[] = [
@@ -32,10 +40,12 @@ export class JsonFormatterComponent {
     { text: 'Cole o JSON no campo acima' },
     { text: 'Opcional: Use JSONPath para filtrar (ex: $.id, $.user.name, $.items[0])' },
     { text: 'No modo "Formatar", o JSON será exibido formatado em texto por padrão' },
-    { text: 'Use o botão "Árvore" para alternar para visualização em formato de árvore (com botões de expandir/colapsar)' },
+    {
+      text: 'Use o botão "Árvore" para alternar para visualização em formato de árvore (com botões de expandir/colapsar)',
+    },
     { text: 'No modo "Compactar", o JSON será exibido em formato texto compactado' },
     { text: 'Use o botão "Copiar" para copiar o JSON processado' },
-    { text: 'Use o botão "Baixar" para salvar como arquivo .json' }
+    { text: 'Use o botão "Baixar" para salvar como arquivo .json' },
   ];
 
   public onJsonInput(): void {
@@ -208,4 +218,3 @@ export class JsonFormatterComponent {
     this.showHelpModal = false;
   }
 }
-
