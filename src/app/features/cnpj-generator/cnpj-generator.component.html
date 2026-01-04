@@ -1,0 +1,45 @@
+<div class="cnpj-generator-container">
+  <header>
+    <h1>Gerador de CNPJ</h1>
+    <p class="subtitle">Gere um CNPJ aleatório e válido</p>
+  </header>
+
+  <div class="content">
+    <div class="generator-card">
+      <div *ngIf="generatedCnpj" class="cnpj-display">
+        <div class="cnpj-formatted">
+          <span class="cnpj-value">{{ formattedCnpj }}</span>
+          <button class="copy-btn" title="Copiar CNPJ formatado" (click)="copyCnpj()">
+            📋
+          </button>
+        </div>
+        <div class="cnpj-unformatted">
+          <span class="label">Sem formatação:</span>
+          <span class="value">{{ generatedCnpj }}</span>
+          <button class="copy-btn-small" title="Copiar CNPJ sem formatação" (click)="copyUnformattedCnpj()">
+            📋
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!generatedCnpj" class="no-cnpj">
+        <p>Clique no botão abaixo para gerar um CNPJ válido</p>
+      </div>
+
+      <button class="generate-btn" (click)="generateCnpj()">
+        Gerar CNPJ
+      </button>
+    </div>
+
+    <div class="info-card">
+      <h3>Informações</h3>
+      <ul>
+        <li>O CNPJ gerado é válido segundo o algoritmo de validação</li>
+        <li>Os dígitos verificadores são calculados corretamente</li>
+        <li>O CNPJ pode ser formatado (XX.XXX.XXX/XXXX-XX) ou sem formatação</li>
+        <li>Este gerador é apenas para fins de teste e desenvolvimento</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

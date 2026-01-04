@@ -1,0 +1,56 @@
+<div class="xsd-tree-view">
+  <ng-container *ngFor="let rootNode of filteredTree">
+    <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: rootNode, toggleFn: toggle.bind(this), selectFn: selectNodeWithEvent, isExpandableFn: isExpandable.bind(this), getNodeIconFn: getNodeIcon.bind(this), getCompositorIconFn: getCompositorIcon.bind(this) }"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #nodeTemplate let-node="node" let-toggleFn="toggleFn" let-selectFn="selectFn" let-isExpandableFn="isExpandableFn" let-getNodeIconFn="getNodeIconFn" let-getCompositorIconFn="getCompositorIconFn">
+  <div class="tree-node-wrapper" [style.padding-left.px]="node.level * 24">
+    <div
+      class="tree-node-content"
+      [class.expandable]="isExpandableFn(node)"
+      [class.selected]="selectedNode?.id === node.id"
+      (click)="selectFn(node, $event)">
+
+      <span
+        *ngIf="isExpandableFn(node)"
+        class="expand-icon"
+        [class.expanded]="node.expanded"
+        (click)="toggleFn(node); $event.stopPropagation()">
+        {{ node.expanded ? '▼' : '▶' }}
+      </span>
+      <span *ngIf="!isExpandableFn(node)" class="expand-icon-placeholder"></span>
+
+      <span class="node-icon">{{ getNodeIconFn(node) }}</span>
+
+      <span class="node-name" [class.required]="node.isRequired" [class.optional]="node.isOptional">
+        {{ node.name }}
+      </span>
+
+      <span *ngIf="node.compositorType" class="compositor-icon" [title]="'Compositor: ' + node.compositorType">
+        {{ getCompositorIconFn(node.compositorType) }}
+      </span>
+
+      <span *ngIf="node.type" class="node-type-badge" [class]="'type-' + node.type">
+        {{ node.type }}
+      </span>
+
+      <span *ngIf="node.occurrences" class="occurrences-badge" [class.required-badge]="node.isRequired">
+        {{ node.occurrences }}
+      </span>
+
+      <span *ngIf="node.isRequired" class="required-badge" title="Obrigatório">
+        ●
+      </span>
+      <span *ngIf="node.isOptional && !node.isRequired" class="optional-badge" title="Opcional">
+        ○
+      </span>
+    </div>
+
+    <div *ngIf="node.expanded && node.children && node.children.length > 0" class="tree-node-children">
+      <ng-container *ngFor="let child of node.children">
+        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: child, toggleFn: toggleFn, selectFn: selectFn, isExpandableFn: isExpandableFn, getNodeIconFn: getNodeIconFn, getCompositorIconFn: getCompositorIconFn }"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

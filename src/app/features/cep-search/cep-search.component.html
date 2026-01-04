@@ -1,0 +1,145 @@
+<div class="cep-search-container">
+  <header>
+    <div class="header-title">
+      <h1>Buscar CEP</h1>
+      <button class="help-icon-btn" (click)="openHelpModal()" title="Como usar">
+        💡
+      </button>
+    </div>
+    <p class="subtitle">Consulte informações de endereço por CEP</p>
+  </header>
+
+  <div class="content">
+    <div class="search-card">
+      <div class="search-wrapper">
+        <div class="input-group">
+          <label for="cepInput">CEP</label>
+          <div class="input-container">
+            <input
+              type="text"
+              id="cepInput"
+              class="cep-input"
+              placeholder="00000000"
+              maxlength="8"
+              [value]="cepInput"
+              [disabled]="isLoading"
+              (input)="onCepInput($event)"
+              (keydown)="onEnterKey($event)">
+            <button
+              *ngIf="cepInput"
+              class="clear-btn"
+              title="Limpar"
+              (click)="clearSearch()">
+              ✕
+            </button>
+          </div>
+        </div>
+        <button
+          class="search-btn"
+          [disabled]="isLoading || cepInput.length !== 8"
+          (click)="searchCep()">
+          <span *ngIf="!isLoading">Buscar</span>
+          <span *ngIf="isLoading">Buscando...</span>
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div *ngIf="cepData" class="result-card">
+      <h2>Informações do CEP</h2>
+
+      <div class="cep-display">
+        <div class="info-item">
+          <span class="label">CEP:</span>
+          <span class="value">{{ cepData.cep | cepFormat }}</span>
+        </div>
+      </div>
+
+      <div class="address-info">
+        <div class="info-item">
+          <span class="label">Logradouro:</span>
+          <span class="value">{{ cepData.logradouro || 'N/A' }}</span>
+        </div>
+
+        <div *ngIf="cepData.complemento" class="info-item">
+          <span class="label">Complemento:</span>
+          <span class="value">{{ cepData.complemento }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Bairro:</span>
+          <span class="value">{{ cepData.bairro || 'N/A' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Localidade:</span>
+          <span class="value">{{ cepData.localidade || 'N/A' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">UF:</span>
+          <span class="value">{{ cepData.uf || 'N/A' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Região:</span>
+          <span class="value">{{ cepData.regiao || 'N/A' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">IBGE:</span>
+          <span class="value">{{ cepData.ibge || 'N/A' }}</span>
+        </div>
+
+        <div *ngIf="cepData.gia" class="info-item">
+          <span class="label">GIA:</span>
+          <span class="value">{{ cepData.gia }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">DDD:</span>
+          <span class="value">{{ cepData.ddd || 'N/A' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">SIAFI:</span>
+          <span class="value">{{ cepData.siafi || 'N/A' }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="mapsUrl" class="maps-section">
+        <div class="maps-header">
+          <h3>Localização no Mapa</h3>
+          <button class="open-maps-btn" (click)="openInGoogleMaps()" title="Abrir no Google Maps">
+            <span>🗺️</span>
+            Abrir no Google Maps
+          </button>
+        </div>
+        <div class="maps-container">
+          <iframe
+            [src]="mapsUrl"
+            width="100%"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização do CEP no Google Maps">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Ajuda -->
+  <app-help-modal
+    [modalTitle]="'Como usar'"
+    [items]="helpItems"
+    [show]="showHelpModal"
+    (onClose)="closeHelpModal()">
+  </app-help-modal>
+</div>
+

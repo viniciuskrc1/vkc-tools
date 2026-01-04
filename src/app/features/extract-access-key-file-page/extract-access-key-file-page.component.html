@@ -1,0 +1,67 @@
+<div class="extractor-container"
+     tabindex="0"
+     [class.drag-over]="isDragging"
+     (drop)="onDrop($event)"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave($event)"
+     (keydown)="onKeyDown($event)">
+  <header>
+    <h1>Extrator de Chave de Acesso</h1>
+    <div class="count">Total: {{ accessKeys.length }} chave(s)</div>
+  </header>
+
+  <div class="separator"></div>
+
+  <div class="controls">
+    <input
+      type="file"
+      id="fileInput"
+      accept=".pdf"
+      multiple
+      style="display: none;"
+      (change)="onFileSelected($event)">
+    <label class="btn btn-primary" for="fileInput">
+      Selecionar Arquivos PDF
+    </label>
+    <button
+      class="btn btn-success"
+      [disabled]="accessKeys.length === 0"
+      (click)="copyAll()">
+      Copiar Todos
+    </button>
+    <div class="progress-container">
+      <div *ngIf="isProcessing" class="progress-indicator"></div>
+    </div>
+  </div>
+
+  <div *ngIf="progressMessage" class="progress-message">
+    {{ progressMessage }}
+  </div>
+
+  <div class="content">
+    <label class="list-label">Chaves de Acesso Extraídas:</label>
+    <div class="list-container">
+      <ul class="list-view">
+        <li
+          *ngFor="let key of accessKeys; let i = index"
+          [class.selected]="i === selectedIndex"
+          (click)="selectItem(i)">
+          <div class="key-container">
+            <span class="key-text">{{ key }}</span>
+            <button
+              class="copy-btn"
+              title="Copiar chave"
+              (click)="copyKey(key, $event)">
+              📋
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="status">{{ statusMessage }}</div>
+  </footer>
+</div>
+

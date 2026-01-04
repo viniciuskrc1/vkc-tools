@@ -1,0 +1,91 @@
+<div class="element-details">
+  <div class="details-header">
+    <h2>
+      <span class="element-icon">📋</span>
+      {{ element.name }}
+    </h2>
+  </div>
+
+  <div class="details-content">
+    <!-- Informações Básicas -->
+    <div class="detail-section">
+      <h3>Informações Básicas</h3>
+      <div class="detail-grid">
+        <div class="detail-item" *ngIf="element.type">
+          <span class="detail-label">Tipo:</span>
+          <span class="detail-value type-value">{{ element.type }}</span>
+        </div>
+        <div class="detail-item" *ngIf="element.ref">
+          <span class="detail-label">Referência:</span>
+          <span class="detail-value ref-value">{{ element.ref }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Ocorrências:</span>
+          <span class="detail-value occurs-value">{{ getOccursLabel() }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Obrigatório:</span>
+          <span class="detail-value" [class.required]="isRequired()" [class.optional]="!isRequired()">
+            {{ isRequired() ? 'Sim' : 'Não' }}
+          </span>
+        </div>
+        <div class="detail-item" *ngIf="element.nillable">
+          <span class="detail-label">Nillable:</span>
+          <span class="detail-value">Sim</span>
+        </div>
+        <div class="detail-item" *ngIf="element.compositorType">
+          <span class="detail-label">Compositor:</span>
+          <span class="detail-value compositor-value">{{ element.compositorType }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Descrição -->
+    <div class="detail-section" *ngIf="element.description">
+      <h3>Descrição</h3>
+      <p class="description-text">{{ element.description }}</p>
+    </div>
+
+    <!-- Valores Default/Fixed -->
+    <div class="detail-section" *ngIf="element.default || element.fixed">
+      <h3>Valores</h3>
+      <div class="detail-grid">
+        <div class="detail-item" *ngIf="element.default">
+          <span class="detail-label">Default:</span>
+          <span class="detail-value code-value">{{ element.default }}</span>
+        </div>
+        <div class="detail-item" *ngIf="element.fixed">
+          <span class="detail-label">Fixed:</span>
+          <span class="detail-value code-value">{{ element.fixed }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atributos -->
+    <div class="detail-section" *ngIf="element.attributes && element.attributes.length > 0">
+      <h3>Atributos ({{ element.attributes.length }})</h3>
+      <div class="attributes-list">
+        <div *ngFor="let attr of element.attributes" class="attribute-item">
+          <div class="attribute-header">
+            <span class="attribute-name">{{ attr.name }}</span>
+            <span *ngIf="attr.type" class="attribute-type">{{ attr.type }}</span>
+            <span class="attribute-use" [class.required]="attr.use === 'required'" [class.optional]="attr.use === 'optional'">
+              {{ attr.use || 'optional' }}
+            </span>
+          </div>
+          <div *ngIf="attr.description" class="attribute-description">{{ attr.description }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Children Info -->
+    <div class="detail-section" *ngIf="element.children && element.children.length > 0">
+      <h3>Elementos Filhos ({{ element.children.length }})</h3>
+      <div class="children-info">
+        <p>Este elemento contém {{ element.children.length }} elemento(s) filho(s).</p>
+        <p class="hint">Clique no elemento na árvore para ver os detalhes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

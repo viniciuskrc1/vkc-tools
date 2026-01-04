@@ -1,0 +1,128 @@
+# Regras de Desenvolvimento - VKC Tools
+
+## Angular
+
+### Versão e Funcionalidades Modernas
+- Este projeto usa Angular 14
+- SEMPRE prefira as funcionalidades mais modernas disponíveis no Angular 14:
+  - `inject()` ao invés de injeção via construtor
+  - Standalone components (`standalone: true`)
+  - Guard functions (functional guards) ao invés de classes
+  - Resolver functions (functional resolvers) ao invés de classes
+  - Standalone pipes, directives e services
+- Use as APIs mais recentes disponíveis na versão 14
+
+### Components
+- SEMPRE use standalone components (standalone: true)
+- Components devem ter arquivos separados para HTML, SCSS e TypeScript
+- Use o decorator @Component com templateUrl e styleUrls
+- Outputs devem ter o prefixo "on" sempre que possível (ex: `onClose`, `onFileSelected`, `onItemClick`)
+- Quando criar algum componente reutilizável: NÃO use nomes de inputs/properties que conflitem com atributos HTML nativos (ex: `title`, `id`, `name`, `class`, etc.) - use nomes alternativos ou prefixos específicos
+
+### Reutilização de Componentes de Formulário
+- ANTES de criar um input, textarea, select ou qualquer componente de formulário em uma feature:
+  1. Verifique se já existe um componente similar em `shared/forms`
+  2. Se NÃO existir: Crie o componente em `shared/forms` para permitir reutilização futura
+  3. Se JÁ existir:
+     - Verifique se o componente existente atende às necessidades
+     - Se precisar de poucas adequações: Adapte o componente existente para ser mais flexível e reutilizável
+     - Se precisar de muitas mudanças que poluiriam o componente: Crie um novo componente com nome mais específico em `shared/forms`
+- Componentes em `shared/forms` devem ser genéricos e flexíveis, permitindo customização através de inputs e outputs
+
+### Interfaces e Tipos
+- SEMPRE declare interfaces com o prefixo "I" (ex: IUser, ICepResponse, IProduct)
+- Interfaces devem ser exportadas em arquivos separados dentro de uma pasta "models"
+- Use interfaces ao invés de types quando possível
+
+### Formatação de Dados
+- Para formatação de dados exibidos na tela, SEMPRE use Pipes do Angular
+- NUNCA use métodos dentro do componente para formatação de dados
+- Crie pipes personalizados quando necessário
+- Pipes devem ser declarados como standalone
+
+### Serviços
+- Use inject() do Angular ao invés de injeção via construtor
+- Serviços injetados (com inject()) devem ser declarados como `readonly` para deixar claro que não são reatribuídos
+- Serviços devem ser declarados como providedIn: 'root' ou standalone
+- Serviços devem estar em uma pasta "services" dentro do feature
+
+### Estrutura de Pastas
+- Cada feature deve ter sua própria pasta dentro de app/features
+- O nome da pasta da feature deve terminar com "-page" (ex: cep-search-page, json-formatter-page)
+- Estrutura padrão de features:
+  - [feature-name]-page.component.ts/html/scss (component principal da página)
+  - [feature-name]-page.routes.ts (rotas da feature)
+  - index.ts (barrel exports)
+  - models/ (interfaces específicas da feature)
+  - enums/ (enums específicos da feature)
+  - services/ (serviços específicos da feature)
+  - pipes/ (pipes personalizados da feature)
+  - guards/ (guards específicos da feature, se necessário)
+  - resolvers/ (resolvers específicos da feature, se necessário)
+  - components/ (componentes específicos da feature, apenas se a página for grande e precisar ser quebrada em componentes menores)
+- Componentes genéricos e reutilizáveis devem estar em `shared/`
+- Componentes em `components/` dentro da feature devem ser específicos para aquela feature
+
+### Imports
+- Use barrel exports (index.ts) para organizar exports
+- Imports devem ser organizados: Angular core primeiro, depois módulos, depois código local
+
+### Nomenclatura
+- Componentes: PascalCase com sufixo Component (ex: CepSearchComponent)
+- Serviços: PascalCase com sufixo Service (ex: CepService)
+- Interfaces: PascalCase com prefixo I (ex: ICepResponse)
+- Pipes: PascalCase com sufixo Pipe (ex: CepFormatPipe)
+- Variáveis e métodos: camelCase
+- Constantes: UPPER_SNAKE_CASE
+
+### TypeScript
+- Use tipagem explícita quando possível
+- Evite usar "any", prefira tipos específicos ou "unknown"
+- NUNCA use o operador de asserção não-nula (`!`) mesmo quando temos certeza que o valor existe (ex: `test!.id`), prefira usar optional chaining (`?.`) ou verificações explícitas
+- Use readonly quando apropriado
+- Prefira const ao invés de let quando a variável não for reatribuída
+- Só utilize async/await e Promise quando necessário (prefira Observables do RxJS quando possível)
+
+### Estrutura de Código
+- Se um método tiver muitos ifs aninhados, SEMPRE adote a estratégia do early return para evitar muitos if/else
+- Early return torna o código mais legível e reduz a complexidade ciclomática
+- Retorne cedo quando condições de erro ou validação falharem, deixando o código principal no final
+
+### Visibilidade de Membros
+- SEMPRE declare explicitamente `public` ou `private` em variáveis e métodos (mesmo que TypeScript assuma `public` por padrão)
+- Métodos e variáveis `public` devem vir ANTES dos métodos e variáveis `private`
+- Variáveis privadas devem vir DEPOIS das variáveis públicas
+- Organização dentro de classes: primeiro todos os membros `public`, depois todos os membros `private`
+- `@HostListener` ou qualquer tipo de listener devem ser declarados ANTES dos métodos públicos do componente
+
+### Estilo de Código
+- Use ponto e vírgula no final das declarações
+- Use aspas simples para strings
+- Use trailing commas em objetos e arrays multilinha
+- Mantenha linhas com no máximo 120 caracteres
+
+### Templates (HTML)
+- Use property binding [property] ao invés de interpolação quando apropriado
+- Use event binding (event) para eventos
+- Use *ngIf e *ngFor de forma eficiente
+- Evite lógica complexa nos templates
+- Ordem dos atributos nos elementos HTML:
+  1. Primeiro: Diretivas de template (*ngIf, *ngFor, *ngSwitch, etc.)
+  2. Depois: Atributos HTML normais (id, class, type, etc.)
+  3. Depois: Inputs do Angular ([property]="value")
+  4. Por último: Outputs do Angular ((event)="handler()")
+
+### Observables
+- Sempre gerencie subscriptions (use takeUntil, async pipe, etc.)
+- Prefira async pipe nos templates quando possível
+- Use RxJS operators apropriados (map, filter, catchError, etc.)
+- Para Observables que ficam com canal aberto (ex: `formControl.valueChanges`, `route.params`, etc.):
+  - Implemente `OnDestroy` do Angular
+  - Declare uma variável `private destroyed$ = new Subject<void>()`
+  - Use `takeUntil(this.destroyed$)` nas subscriptions
+  - No `ngOnDestroy`, execute: `this.destroyed$.next()` e `this.destroyed$.complete()`
+
+### Estilos (SCSS/CSS)
+- Evite ao máximo o uso de `::ng-deep` devido aos problemas de encapsulamento e manutenibilidade que ele causa
+- Prefira soluções alternativas como: ViewEncapsulation.None (quando necessário), classes CSS compartilhadas, ou estilização via inputs do componente
+

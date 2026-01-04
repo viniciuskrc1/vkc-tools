@@ -1,0 +1,45 @@
+<div class="cpf-generator-container">
+  <header>
+    <h1>Gerador de CPF</h1>
+    <p class="subtitle">Gere um CPF aleatório e válido</p>
+  </header>
+
+  <div class="content">
+    <div class="generator-card">
+      <div *ngIf="generatedCpf" class="cpf-display">
+        <div class="cpf-formatted">
+          <span class="cpf-value">{{ formattedCpf }}</span>
+          <button class="copy-btn" title="Copiar CPF formatado" (click)="copyCpf()">
+            📋
+          </button>
+        </div>
+        <div class="cpf-unformatted">
+          <span class="label">Sem formatação:</span>
+          <span class="value">{{ generatedCpf }}</span>
+          <button class="copy-btn-small" title="Copiar CPF sem formatação" (click)="copyUnformattedCpf()">
+            📋
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!generatedCpf" class="no-cpf">
+        <p>Clique no botão abaixo para gerar um CPF válido</p>
+      </div>
+
+      <button class="generate-btn" (click)="generateCpf()">
+        Gerar CPF
+      </button>
+    </div>
+
+    <div class="info-card">
+      <h3>Informações</h3>
+      <ul>
+        <li>O CPF gerado é válido segundo o algoritmo de validação</li>
+        <li>Os dígitos verificadores são calculados corretamente</li>
+        <li>O CPF pode ser formatado (XXX.XXX.XXX-XX) ou sem formatação</li>
+        <li>Este gerador é apenas para fins de teste e desenvolvimento</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

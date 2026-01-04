@@ -1,0 +1,15 @@
+<div class="select-wrapper">
+  <label *ngIf="label" [for]="id" class="select-label">{{ label }}</label>
+  <select
+    [id]="id"
+    [value]="value"
+    [disabled]="disabled"
+    (change)="onSelect($event)"
+    (blur)="onBlur()"
+    class="form-select">
+    <option *ngFor="let option of options" [value]="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+</div>
+

@@ -1,0 +1,49 @@
+<nav class="sidebar-menu" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <div class="header-content">
+      <h2 *ngIf="!isCollapsed" class="sidebar-title">
+        <span class="rocket-icon">🚀</span> VKC Tools
+      </h2>
+      <h2 *ngIf="isCollapsed" class="sidebar-title collapsed">
+        <span class="rocket-icon">🚀</span> VKC
+      </h2>
+      <button class="toggle-btn" [attr.aria-label]="isCollapsed ? 'Expandir menu' : 'Recolher menu'" (click)="toggleSidebar()">
+        <span *ngIf="!isCollapsed">‹</span>
+        <span *ngIf="isCollapsed">›</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isCollapsed" class="search-container">
+    <div class="search-wrapper">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Pesquisar menu..."
+        [(ngModel)]="searchTerm">
+      <button
+        *ngIf="searchTerm"
+        class="clear-search-btn"
+        title="Limpar pesquisa"
+        (click)="clearSearch()">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <ul class="menu-list">
+    <li
+      *ngFor="let item of filteredMenuItems"
+      class="menu-item"
+      [class.selected]="item.selected"
+      [title]="isCollapsed ? item.label : ''"
+      (click)="selectItem(item)">
+      <span *ngIf="item.icon" class="menu-icon">{{ item.icon }}</span>
+      <span *ngIf="!isCollapsed" class="menu-label">{{ item.label }}</span>
+    </li>
+    <li *ngIf="filteredMenuItems.length === 0 && searchTerm" class="no-results">
+      <span>Nenhum resultado encontrado</span>
+    </li>
+  </ul>
+</nav>
+

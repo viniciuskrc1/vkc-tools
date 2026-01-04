@@ -1,0 +1,27 @@
+<div class="json-tree-view">
+  <ng-container *ngFor="let node of tree">
+    <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: node, toggleFn: toggle.bind(this), getValueFn: getValueDisplay.bind(this), isExpandableFn: isExpandable.bind(this) }"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #nodeTemplate let-node="node" let-toggleFn="toggleFn" let-getValueFn="getValueFn" let-isExpandableFn="isExpandableFn">
+  <div class="tree-node-wrapper" [style.padding-left.px]="node.level * 20">
+    <div class="tree-node-content" (click)="toggleFn(node)">
+      <span *ngIf="isExpandableFn(node)" class="expand-icon" [class.expanded]="node.expanded">
+        {{ node.expanded ? '▼' : '▶' }}
+      </span>
+      <span *ngIf="!isExpandableFn(node)" class="expand-icon-placeholder"></span>
+      <span class="key" [class.array-key]="node.type === 'array'">
+        {{ node.key === 'root' ? '' : (node.key + ':') }}
+      </span>
+      <span class="value" [class]="'value-' + node.type">
+        {{ getValueFn(node) }}
+      </span>
+    </div>
+    <div *ngIf="node.expanded && node.children && node.children.length > 0" class="tree-node-children">
+      <ng-container *ngFor="let child of node.children">
+        <ng-container *ngTemplateOutlet="nodeTemplate; context: { node: child, toggleFn: toggleFn, getValueFn: getValueFn, isExpandableFn: isExpandableFn }"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

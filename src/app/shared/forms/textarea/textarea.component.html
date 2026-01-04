@@ -1,0 +1,25 @@
+<div class="textarea-wrapper">
+  <label *ngIf="label" [for]="id" class="textarea-label">{{ label }}</label>
+  <div class="textarea-container">
+    <textarea
+      [id]="id"
+      [placeholder]="placeholder"
+      [rows]="rows"
+      [value]="value"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      [class.monospace]="fontFamily === 'monospace'"
+      class="form-textarea"></textarea>
+    <button
+      *ngIf="showClearButton && value && !disabled && !readonly"
+      class="clear-btn"
+      type="button"
+      title="Limpar"
+      (click)="clearInput()">
+      ✕
+    </button>
+  </div>
+</div>
+

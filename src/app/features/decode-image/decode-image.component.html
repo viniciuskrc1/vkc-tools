@@ -1,0 +1,64 @@
+<div class="decode-image-container">
+  <header>
+    <div class="header-title">
+      <h1>Decode Image</h1>
+      <button class="help-icon-btn" (click)="openHelpModal()" title="Como usar">
+        💡
+      </button>
+    </div>
+    <p class="subtitle">Cole um base64 e visualize a imagem</p>
+  </header>
+
+  <div class="content">
+    <div class="input-card">
+      <div class="input-group">
+        <label for="base64Input">Base64 da Imagem</label>
+        <div class="textarea-container">
+          <textarea
+            id="base64Input"
+            class="base64-input"
+            placeholder="Cole aqui o base64 da imagem (com ou sem prefixo data:image/...)"
+            rows="8"
+            [(ngModel)]="base64Input"
+            (input)="onBase64Input()"></textarea>
+          <button
+            *ngIf="base64Input"
+            class="clear-btn"
+            title="Limpar"
+            (click)="clearInput()">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div *ngIf="imagePreview" class="preview-card">
+      <h2>Preview da Imagem</h2>
+
+      <div class="image-container">
+        <img class="preview-image" alt="Imagem decodificada" [src]="imagePreview" />
+      </div>
+
+      <div class="download-section">
+        <button class="download-btn" (click)="downloadImage()">
+          <span>⬇</span>
+          Download da Imagem
+        </button>
+        <span class="file-name">{{ fileName }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Ajuda -->
+  <app-help-modal
+    [modalTitle]="'Como usar'"
+    [items]="helpItems"
+    [show]="showHelpModal"
+    (onClose)="closeHelpModal()">
+  </app-help-modal>
+</div>
+

@@ -1,0 +1,252 @@
+.extractor-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 48px);
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+header {
+  padding: 25px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .count {
+    font-size: 14px;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+}
+
+.separator {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+}
+
+.controls {
+  padding: 20px 30px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: #2980b9;
+  }
+}
+
+.btn-success {
+  background: #27ae60;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: #229954;
+  }
+}
+
+.progress-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.progress-indicator {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progress-message {
+  padding: 10px 30px;
+  background: #e8f4f8;
+  color: #2980b9;
+  font-size: 14px;
+  text-align: center;
+}
+
+.content {
+  flex: 1;
+  padding: 20px 30px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.list-container {
+  flex: 1;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  min-height: 300px;
+}
+
+.list-view {
+  list-style: none;
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
+  margin: 0;
+
+  li {
+    padding: 12px 15px;
+    margin: 5px 0;
+    background: #f8f9fa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    word-break: break-all;
+    border: 2px solid transparent;
+
+    &:hover {
+      background: #e8f4f8;
+      border-color: #3498db;
+      transform: translateX(5px);
+    }
+
+    &:active {
+      background: #d4e6f1;
+    }
+
+    &.selected {
+      background: #d4e6f1;
+      border-color: #3498db;
+      font-weight: 600;
+    }
+  }
+}
+
+.key-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+.key-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.copy-btn {
+  background: #3498db;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 10px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 32px;
+
+  &:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+footer {
+  padding: 15px 30px;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.status {
+  font-size: 12px;
+  color: #7f8c8d;
+}
+
+// Drag and drop styles
+.extractor-container.drag-over {
+  background: #e8f4f8 !important;
+  border: 3px solid #3498db !important;
+}
+

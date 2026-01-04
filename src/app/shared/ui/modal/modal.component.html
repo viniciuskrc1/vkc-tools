@@ -1,0 +1,29 @@
+<div *ngIf="show && config" class="modal-overlay" (click)="cancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ config.modalTitle }}</h2>
+      <button class="modal-close-btn" (click)="cancel()" title="Fechar" type="button">
+        ✕
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{ config.message }}</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        *ngIf="config.showCancel !== false"
+        class="btn-cancel"
+        (click)="cancel()"
+        type="button">
+        {{ config.cancelText || 'Cancelar' }}
+      </button>
+      <button
+        class="btn-confirm"
+        (click)="confirm()"
+        type="button">
+        {{ config.confirmText || 'Confirmar' }}
+      </button>
+    </div>
+  </div>
+</div>
+

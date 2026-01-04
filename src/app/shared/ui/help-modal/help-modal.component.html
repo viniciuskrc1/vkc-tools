@@ -1,0 +1,18 @@
+<div *ngIf="show" class="modal-overlay" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>
+        <span *ngIf="icon" class="modal-icon">{{ icon }}</span>
+        {{ modalTitle }}
+      </h2>
+      <button class="modal-close-btn" (click)="close()" title="Fechar" type="button">
+        ✕
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul>
+        <li *ngFor="let item of items">{{ item.text }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

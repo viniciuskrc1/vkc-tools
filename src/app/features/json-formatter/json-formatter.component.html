@@ -1,0 +1,92 @@
+<div class="json-formatter-container">
+  <header>
+    <div class="header-title">
+      <h1>JSON Formatter</h1>
+      <button class="help-icon-btn" (click)="openHelpModal()" title="Como usar">
+        💡
+      </button>
+    </div>
+    <p class="subtitle">Formate ou compacte seu JSON de forma rápida e fácil</p>
+  </header>
+
+  <div class="content">
+    <div class="input-card">
+      <div class="input-group">
+        <app-select
+          id="formatOption"
+          label="Opção:"
+          [options]="formatOptions"
+          [(ngModel)]="formatOption"
+          (valueChange)="onFormatOptionChange()">
+        </app-select>
+        <app-input
+          id="jsonPath"
+          label="JSONPath (opcional):"
+          type="text"
+          placeholder="Ex: $.id, $.user.name, $.items[0]"
+          [(ngModel)]="jsonPath"
+          (valueChange)="onJsonPathInput()"
+          [showClearButton]="true">
+        </app-input>
+        <app-textarea
+          id="jsonInput"
+          label="JSON"
+          placeholder="Cole aqui o JSON..."
+          [rows]="12"
+          fontFamily="monospace"
+          [(ngModel)]="jsonInput"
+          (valueChange)="onJsonInput()"
+          (clear)="onJsonInput()">
+        </app-textarea>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div *ngIf="formattedJson" class="output-card">
+      <div class="output-header">
+        <h2>{{ formatOption === 'format' ? 'JSON Formatado' : 'JSON Compactado' }}</h2>
+        <div class="action-buttons">
+          <button
+            *ngIf="formatOption === 'format'"
+            class="view-mode-btn"
+            (click)="toggleViewMode()"
+            [title]="viewMode === 'text' ? 'Ver em formato de árvore' : 'Ver em formato texto'">
+            <span>{{ viewMode === 'text' ? '🌳' : '📄' }}</span>
+            {{ viewMode === 'text' ? 'Árvore' : 'Texto' }}
+          </button>
+          <button class="copy-btn" (click)="copyFormattedJson()">
+            <span>📋</span>
+            Copiar
+          </button>
+          <button class="download-btn" (click)="downloadJson()">
+            <span>⬇</span>
+            Baixar
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="formatOption === 'format' && viewMode === 'tree'" class="json-tree-container">
+        <app-json-tree-view [json]="formattedJsonObject" [expanded]="true"></app-json-tree-view>
+      </div>
+      <div *ngIf="(formatOption === 'format' && viewMode === 'text') || formatOption === 'minify'" class="json-preview">
+        <pre><code>{{ formattedJson }}</code></pre>
+      </div>
+    </div>
+
+    <div *ngIf="statusMessage" class="status-message">
+      {{ statusMessage }}
+    </div>
+  </div>
+
+  <!-- Modal de Ajuda -->
+  <app-help-modal
+    [modalTitle]="'Como usar'"
+    [items]="helpItems"
+    [show]="showHelpModal"
+    (onClose)="closeHelpModal()">
+  </app-help-modal>
+</div>
+

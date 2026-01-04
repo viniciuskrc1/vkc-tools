@@ -1,0 +1,104 @@
+<div class="xsd-viewer-container">
+  <header>
+    <h1>XSD Viewer & Analyzer</h1>
+    <p class="subtitle">Visualize e analise arquivos XML Schema Definition de forma interativa</p>
+  </header>
+
+  <div class="content">
+    <div class="upload-section">
+      <app-file-selector
+        [accept]="'.xsd'"
+        [multiple]="true"
+        (fileSelected)="onFileListSelected($event)">
+      </app-file-selector>
+
+      <div *ngIf="xsdFiles.length > 0" class="files-info">
+        <p><strong>{{ xsdFiles.length }}</strong> arquivo(s) XSD selecionado(s)</p>
+        <p *ngIf="schemas.length > 0" class="schemas-info">
+          <strong>{{ schemas.length }}</strong> schema(s) processado(s) com sucesso
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="isProcessing" class="processing-indicator">
+      <div class="spinner"></div>
+      <p>Processando arquivos XSD...</p>
+    </div>
+
+    <div *ngIf="schemas.length > 0 && !isProcessing" class="viewer-section">
+      <div class="viewer-header">
+        <h2>Estrutura do Schema</h2>
+        <div class="viewer-controls">
+          <app-input
+            id="searchInput"
+            type="text"
+            placeholder="Buscar elemento..."
+            [(ngModel)]="searchTerm"
+            [showClearButton]="true">
+          </app-input>
+        </div>
+      </div>
+
+      <div class="viewer-content">
+        <div class="tree-view-container">
+          <app-xsd-tree-view
+            [schemas]="schemas"
+            [expanded]="false"
+            [searchTerm]="searchTerm"
+            (nodeSelected)="onNodeSelected($event)">
+          </app-xsd-tree-view>
+        </div>
+
+        <div *ngIf="selectedNode" class="details-panel">
+          <div class="details-header">
+            <h3>Detalhes do Elemento</h3>
+            <button class="close-btn" (click)="clearSelection()" title="Fechar">✕</button>
+          </div>
+          <div class="details-content">
+            <div class="detail-item">
+              <span class="detail-label">Nome:</span>
+              <span class="detail-value">{{ getNodeDetails()?.name }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tipo:</span>
+              <span class="detail-value detail-badge" [class]="'type-' + selectedNode.type">
+                {{ selectedNode.type }}
+              </span>
+            </div>
+            <div *ngIf="selectedNode.occurrences" class="detail-item">
+              <span class="detail-label">Ocorrências:</span>
+              <span class="detail-value">{{ selectedNode.occurrences }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status:</span>
+              <span class="detail-value">
+                <span *ngIf="selectedNode.isRequired" class="status-badge required">Obrigatório</span>
+                <span *ngIf="selectedNode.isOptional && !selectedNode.isRequired" class="status-badge optional">Opcional</span>
+              </span>
+            </div>
+            <div *ngIf="selectedNode.compositorType" class="detail-item">
+              <span class="detail-label">Compositor:</span>
+              <span class="detail-value">{{ selectedNode.compositorType }}</span>
+            </div>
+            <div *ngIf="getNodeDetails()?.type" class="detail-item">
+              <span class="detail-label">Tipo de Dados:</span>
+              <span class="detail-value detail-code">{{ getNodeDetails()?.type }}</span>
+            </div>
+            <div *ngIf="selectedNode.namespace" class="detail-item">
+              <span class="detail-label">Namespace:</span>
+              <span class="detail-value detail-code">{{ selectedNode.namespace }}</span>
+            </div>
+            <div *ngIf="selectedNode.description" class="detail-item description-item">
+              <span class="detail-label">Descrição:</span>
+              <p class="detail-value">{{ selectedNode.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

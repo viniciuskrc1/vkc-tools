@@ -1,0 +1,102 @@
+<div class="json-to-code-container">
+  <header>
+    <div class="header-title">
+      <h1>JSON para Código</h1>
+      <button class="help-icon-btn" (click)="openHelpModal()" title="Como usar">
+        💡
+      </button>
+    </div>
+    <p class="subtitle">Gere interfaces TypeScript ou classes Java DTO a partir de JSON</p>
+  </header>
+
+  <div class="content">
+    <div class="input-card">
+      <div class="input-group">
+        <app-select
+          id="language"
+          label="Linguagem:"
+          [options]="languageOptions"
+          [(ngModel)]="language"
+          (valueChange)="onLanguageChange()">
+        </app-select>
+
+        <app-input
+          id="className"
+          label="Nome da Classe:"
+          type="text"
+          placeholder="Ex: Product, User, Order"
+          [(ngModel)]="className"
+          (valueChange)="onClassNameInput()"
+          [showClearButton]="true">
+        </app-input>
+
+        <app-input
+          id="classSuffix"
+          label="Sufixo (Opcional):"
+          type="text"
+          placeholder="Ex: Omie, Api, Service"
+          [(ngModel)]="classSuffix"
+          (valueChange)="onClassSuffixInput()"
+          [showClearButton]="true">
+        </app-input>
+
+        <app-textarea
+          id="jsonInput"
+          label="JSON"
+          placeholder="Cole aqui o JSON..."
+          [rows]="12"
+          fontFamily="monospace"
+          [(ngModel)]="jsonInput"
+          (valueChange)="onJsonInput()"
+          (clear)="onJsonInput()">
+        </app-textarea>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div *ngIf="generatedCode || editedCode" class="output-card">
+      <div class="output-header">
+        <h2>Preview do Código Gerado</h2>
+        <div class="action-buttons">
+          <button class="copy-btn" (click)="copyCode()">
+            <span>📋</span>
+            Copiar
+          </button>
+          <button class="download-btn" (click)="downloadCode()">
+            <span>⬇</span>
+            Baixar
+          </button>
+        </div>
+      </div>
+
+      <div class="code-preview">
+        <app-textarea
+          id="codePreview"
+          label=""
+          [rows]="20"
+          fontFamily="monospace"
+          [(ngModel)]="editedCode"
+          (valueChange)="onCodeEdit()"
+          [showClearButton]="false"
+          [readonly]="false">
+        </app-textarea>
+      </div>
+    </div>
+
+    <div *ngIf="statusMessage" class="status-message">
+      {{ statusMessage }}
+    </div>
+  </div>
+
+  <!-- Modal de Ajuda -->
+  <app-help-modal
+    [modalTitle]="'Como usar'"
+    [items]="helpItems"
+    [show]="showHelpModal"
+    (onClose)="closeHelpModal()">
+  </app-help-modal>
+</div>
+

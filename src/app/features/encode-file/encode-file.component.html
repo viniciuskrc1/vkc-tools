@@ -1,0 +1,88 @@
+<div class="encode-file-container">
+  <header>
+    <div class="header-title">
+      <h1>Encode File</h1>
+      <button class="help-icon-btn" (click)="openHelpModal()" title="Como usar">
+        💡
+      </button>
+    </div>
+    <p class="subtitle">Converta arquivos em base64</p>
+  </header>
+
+  <div class="content">
+    <div class="upload-card">
+      <div class="upload-area"
+           [class.dragging]="false"
+           (drop)="onDrop($event)"
+           (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave($event)">
+        <input
+          type="file"
+          id="fileInput"
+          class="file-input"
+          accept="*/*"
+          [disabled]="isLoading"
+          (change)="onFileSelected($event)">
+        <label for="fileInput" class="upload-label">
+          <span class="upload-icon">📁</span>
+          <span class="upload-text">
+            <strong>Clique para selecionar</strong> ou arraste um arquivo aqui
+          </span>
+          <span class="upload-hint">Suporta imagens, PDFs, XMLs e outros arquivos</span>
+        </label>
+      </div>
+
+      <div *ngIf="fileName" class="file-info">
+        <div class="info-item">
+          <span class="label">Arquivo:</span>
+          <span class="value">{{ fileName }}</span>
+        </div>
+        <div *ngIf="fileType" class="info-item">
+          <span class="label">Tipo:</span>
+          <span class="value">{{ fileType }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="isLoading" class="loading">
+        <span>Codificando arquivo...</span>
+      </div>
+    </div>
+
+    <div *ngIf="base64Output" class="output-card">
+      <div class="output-header">
+        <h2>Base64 Gerado</h2>
+        <button class="copy-btn" [class.copied]="isCopied" (click)="copyToClipboard()">
+          <span *ngIf="!isCopied">📋 Copiar</span>
+          <span *ngIf="isCopied">✓ Copiado!</span>
+        </button>
+      </div>
+
+      <div class="textarea-container">
+        <textarea
+          class="base64-output"
+          readonly
+          rows="10"
+          [value]="base64Output"></textarea>
+        <button
+          class="clear-btn"
+          title="Limpar"
+          (click)="clearOutput()">
+          ✕
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Ajuda -->
+  <app-help-modal
+    [modalTitle]="'Como usar'"
+    [items]="helpItems"
+    [show]="showHelpModal"
+    (onClose)="closeHelpModal()">
+  </app-help-modal>
+</div>
+
