@@ -1,10 +1,10 @@
 .json-tree-view {
-  font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+  font-family: 'JetBrains Mono', 'Courier New', 'Consolas', 'Monaco', monospace;
   font-size: 14px;
   line-height: 1.6;
-  color: #2c3e50;
-  background: #f8f9fa;
-  border-radius: 8px;
+  color: var(--text-primary);
+  background: transparent;
+  border-radius: var(--border-radius);
   padding: 16px;
   overflow-x: auto;
 }
@@ -18,12 +18,12 @@
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color var(--transition-fast);
 
   &:hover {
-    background-color: #e9ecef;
+    background-color: var(--bg-hover);
   }
 }
 
@@ -31,12 +31,16 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-size: 10px;
   text-align: center;
   line-height: 16px;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-fast);
   flex-shrink: 0;
+
+  &:hover {
+    color: var(--accent-cyan);
+  }
 }
 
 .expand-icon-placeholder {
@@ -47,30 +51,30 @@
 
 .key {
   font-weight: 600;
-  color: #0066cc;
+  color: var(--accent-cyan);
 
   &.array-key {
-    color: #9933cc;
+    color: var(--accent-purple);
   }
 }
 
 .value {
-  color: #2c3e50;
+  color: var(--text-primary);
 
   &.value-string {
-    color: #008000;
+    color: var(--accent-green);
   }
 
   &.value-number {
-    color: #ff6600;
+    color: var(--accent-orange);
   }
 
   &.value-boolean {
-    color: #0000ff;
+    color: var(--accent-magenta);
   }
 
   &.value-null {
-    color: #808080;
+    color: var(--text-muted);
     font-style: italic;
   }
 }

@@ -19,20 +19,20 @@ header {
   h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-primary);
     margin: 0;
   }
 
   .subtitle {
     font-size: 16px;
-    color: #7f8c8d;
+    color: var(--text-secondary);
     margin: 0;
   }
 }
 
 .help-icon-btn {
-  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-  border: none;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   width: 44px;
   height: 44px;
@@ -41,12 +41,15 @@ header {
   justify-content: center;
   font-size: 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-fast);
+  color: var(--text-secondary);
 
   &:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-glow);
   }
 
   &:active {
@@ -61,10 +64,11 @@ header {
 }
 
 .search-card {
-  background: white;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
   padding: 32px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 
 .search-wrapper {
@@ -81,7 +85,7 @@ header {
   label {
     font-size: 14px;
     font-weight: 600;
-    color: #34495e;
+    color: var(--text-primary);
   }
 }
 
@@ -94,22 +98,24 @@ header {
 .cep-input {
   width: 100%;
   padding: 12px 40px 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
   letter-spacing: 2px;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
+  background: var(--bg-card);
+  color: var(--text-primary);
 
   &:focus {
     outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-glow);
   }
 
   &:disabled {
-    background-color: #f5f5f5;
+    background-color: var(--bg-tertiary);
     cursor: not-allowed;
   }
 }
@@ -119,7 +125,7 @@ header {
   right: 8px;
   background: transparent;
   border: none;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 18px;
   width: 24px;
@@ -128,11 +134,11 @@ header {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 
   &:hover {
-    background-color: #e0e0e0;
-    color: #2c3e50;
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
     transform: scale(1.1);
   }
 
@@ -142,20 +148,20 @@ header {
 }
 
 .search-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-dim));
   border: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: var(--border-radius);
+  color: var(--bg-primary);
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
   padding: 14px 32px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 14px rgba(0, 217, 255, 0.3);
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
   }
 
   &:active:not(:disabled) {
@@ -171,33 +177,34 @@ header {
 
 .error-message {
   padding: 12px 16px;
-  background-color: #fee;
-  border: 1px solid #fcc;
-  border-radius: 6px;
-  color: #c33;
+  background-color: rgba(255, 68, 68, 0.1);
+  border: 1px solid var(--accent-red);
+  border-radius: var(--border-radius);
+  color: var(--accent-red);
   font-size: 14px;
   margin-top: 8px;
 }
 
 .result-card {
-  background: white;
-  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
   padding: 32px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 
   h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-primary);
     margin: 0 0 24px 0;
     padding-bottom: 16px;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-color);
   }
 }
 
 .cep-display {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: var(--border-radius);
   padding: 20px;
   margin-bottom: 24px;
   text-align: center;
@@ -221,7 +228,7 @@ header {
       font-size: 28px;
       font-weight: 700;
       color: #ffffff !important;
-      font-family: 'Courier New', monospace;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
       letter-spacing: 2px;
     }
   }
@@ -238,14 +245,14 @@ header {
   flex-direction: column;
   gap: 4px;
   padding: 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border-left: 3px solid #3498db;
+  background: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--accent-cyan);
 
   .label {
     font-size: 12px;
     font-weight: 600;
-    color: #7f8c8d;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -253,14 +260,14 @@ header {
   .value {
     font-size: 16px;
     font-weight: 500;
-    color: #2c3e50;
+    color: var(--text-primary);
   }
 }
 
 .maps-section {
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 2px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 
   .maps-header {
     display: flex;
@@ -271,7 +278,7 @@ header {
     h3 {
       font-size: 20px;
       font-weight: 600;
-      color: #2c3e50;
+      color: var(--text-primary);
       margin: 0;
     }
   }
@@ -281,16 +288,16 @@ header {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+  background: var(--accent-green);
   border: none;
-  border-radius: 6px;
-  color: white;
+  border-radius: var(--border-radius);
+  color: var(--bg-primary);
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 16px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 14px rgba(0, 255, 136, 0.3);
 
   span {
     font-size: 16px;
@@ -298,7 +305,7 @@ header {
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
   }
 
   &:active {
@@ -307,16 +314,15 @@ header {
 }
 
 .maps-container {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #f0f0f0;
+  box-shadow: var(--shadow-card);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
 
   iframe {
     display: block;
     width: 100%;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
   }
 }
-
-

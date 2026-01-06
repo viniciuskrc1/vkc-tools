@@ -1,10 +1,10 @@
 .xsd-tree-view {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  color: #2c3e50;
-  background: #ffffff;
-  border-radius: 8px;
+  color: var(--text-primary);
+  background: transparent;
+  border-radius: var(--border-radius);
   padding: 16px;
   overflow-x: auto;
   max-height: 80vh;
@@ -21,31 +21,32 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   position: relative;
   min-height: 32px;
 
   &:hover {
-    background: linear-gradient(90deg, #f0f4f8 0%, #e8f0f5 100%);
+    background: var(--bg-hover);
     transform: translateX(2px);
   }
 
   &.selected {
-    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
-    color: white;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+    background: rgba(0, 217, 255, 0.15);
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: var(--shadow-glow);
 
     .node-name,
     .node-type-badge,
     .occurrences-badge {
-      color: white;
+      color: var(--accent-cyan);
     }
 
     .required-badge,
     .optional-badge {
-      color: white;
+      color: var(--accent-cyan);
     }
   }
 
@@ -60,18 +61,18 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: #6c757d;
+  color: var(--text-secondary);
   font-size: 10px;
   text-align: center;
   line-height: 20px;
-  transition: transform 0.2s ease;
+  transition: transform var(--transition-fast);
   flex-shrink: 0;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: #495057;
+    background: var(--bg-hover);
+    color: var(--accent-cyan);
   }
 
   &.expanded {
@@ -94,7 +95,7 @@
 
 .node-name {
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--text-primary);
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -102,15 +103,15 @@
   white-space: nowrap;
 
   &.required {
-    color: #e74c3c;
+    color: var(--accent-red);
   }
 
   &.optional {
-    color: #27ae60;
+    color: var(--accent-green);
   }
 
   .tree-node-content.selected & {
-    color: white;
+    color: var(--accent-cyan);
   }
 }
 
@@ -125,33 +126,33 @@
   font-weight: 700;
   text-transform: uppercase;
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   flex-shrink: 0;
   letter-spacing: 0.5px;
 
   &.type-element {
-    background: #3498db;
-    color: white;
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
   }
 
   &.type-attribute {
-    background: #9b59b6;
-    color: white;
+    background: var(--accent-purple);
+    color: var(--bg-primary);
   }
 
   &.type-complexType {
-    background: #e67e22;
-    color: white;
+    background: var(--accent-orange);
+    color: var(--bg-primary);
   }
 
   &.type-simpleType {
-    background: #1abc9c;
-    color: white;
+    background: var(--accent-green);
+    color: var(--bg-primary);
   }
 
   .tree-node-content.selected & {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
+    background: rgba(0, 217, 255, 0.3);
+    color: var(--accent-cyan);
   }
 }
 
@@ -160,26 +161,26 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 12px;
-  background: #ecf0f1;
-  color: #7f8c8d;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
   flex-shrink: 0;
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
 
   &.required-badge {
-    background: #fee;
-    color: #c0392b;
-    border: 1px solid #e74c3c;
+    background: rgba(255, 68, 68, 0.1);
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
   }
 
   .tree-node-content.selected & {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 217, 255, 0.3);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
   }
 }
 
 .required-badge {
-  color: #e74c3c;
+  color: var(--accent-red);
   font-size: 12px;
   font-weight: bold;
   flex-shrink: 0;
@@ -188,7 +189,7 @@
 }
 
 .optional-badge {
-  color: #27ae60;
+  color: var(--accent-green);
   font-size: 12px;
   font-weight: bold;
   flex-shrink: 0;
@@ -198,7 +199,7 @@
 
 .tree-node-children {
   margin-left: 0;
-  border-left: 2px solid #e0e0e0;
+  border-left: 2px solid var(--border-color);
   margin-left: 10px;
   padding-left: 8px;
 }

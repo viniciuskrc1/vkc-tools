@@ -1,14 +1,184 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* ============================================
+   VARIÁVEIS CSS - PALETA DE CORES CYBERPUNK
+   ============================================ */
+
+:root {
+  /* Cores principais de fundo */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a26;
+  --bg-card: #15151f;
+  --bg-hover: #1e1e2e;
+
+  /* Cores de destaque */
+  --accent-cyan: #00d9ff;
+  --accent-cyan-dim: #00a8cc;
+  --accent-magenta: #ff00aa;
+  --accent-purple: #8b5cf6;
+  --accent-green: #00ff88;
+  --accent-orange: #ff9500;
+  --accent-red: #ff4444;
+
+  /* Cores de texto */
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+
+  /* Bordas e divisores */
+  --border-color: #2a2a3a;
+  --border-focus: var(--accent-cyan);
+
+  /* Sombras */
+  --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.15);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+  /* Dimensões */
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+
+  /* Transições */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* ============================================
+   RESET E CONFIGURAÇÕES BASE
+   ============================================ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+}
+
+/* Fonte monoespaçada para código */
+code,
+pre,
+.mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* ============================================
+   ESTILOS GLOBAIS PARA ELEMENTOS HTML
+   ============================================ */
+
+/* Inputs nativos */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+textarea {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-glow);
+  }
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:disabled {
+    background-color: var(--bg-tertiary);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+/* Select nativo */
+select {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-glow);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--accent-cyan-dim);
+    background-color: var(--bg-hover);
+  }
+
+  &:disabled {
+    background-color: var(--bg-tertiary);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+  }
+}
+
+/* Botões nativos */
+button {
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+/* Links */
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--accent-cyan-dim);
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+  border: 2px solid var(--bg-secondary);
+
+  &:hover {
+    background: var(--border-color);
+  }
 }
 

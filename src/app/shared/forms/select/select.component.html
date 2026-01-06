@@ -6,10 +6,10 @@
     [disabled]="disabled"
     (change)="onSelect($event)"
     (blur)="onBlur()"
-    class="form-select">
+    class="form-select"
+  >
     <option *ngFor="let option of options" [value]="option.value">
       {{ option.label }}
     </option>
   </select>
 </div>
-

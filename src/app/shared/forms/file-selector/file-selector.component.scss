@@ -25,25 +25,27 @@
   justify-content: center;
   gap: 12px;
   padding: 48px 24px;
-  border: 2px dashed #e0e0e0;
-  border-radius: 8px;
-  background-color: white;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-card);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   min-height: 150px;
 
   &:hover:not(.disabled) {
-    border-color: #3498db;
-    background: #f0f7ff;
+    border-color: var(--accent-cyan);
+    background: var(--bg-hover);
+    box-shadow: var(--shadow-glow);
   }
 
   &.dragging {
-    border-color: #3498db;
-    background: #e8f4fd;
+    border-color: var(--accent-cyan);
+    background: var(--bg-tertiary);
+    box-shadow: var(--shadow-glow);
   }
 
   &.disabled {
-    background-color: #f5f5f5;
+    background-color: var(--bg-tertiary);
     cursor: not-allowed;
     opacity: 0.6;
   }
@@ -55,17 +57,17 @@
 
 .file-text {
   font-size: 16px;
-  color: #34495e;
+  color: var(--text-primary);
   text-align: center;
 
   strong {
-    color: #3498db;
+    color: var(--accent-cyan);
   }
 }
 
 .file-hint {
   font-size: 12px;
-  color: #7f8c8d;
+  color: var(--text-muted);
   text-align: center;
 }
 
